@@ -43,7 +43,7 @@ function Login (){
                 data-testid="email-input"
                 onChange={emailValidation}
             />
-            <label htmlFor='password-input'>Senha: </label>
+            <label htmlFor='password-input'>Password: </label>
             <input
                 name="password-input"
                 type="password"
