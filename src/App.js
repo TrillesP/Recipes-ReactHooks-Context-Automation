@@ -1,16 +1,20 @@
 import React from 'react';
 import Login from './pages/Login';
 import Recipes from './pages/Recipes';
-import { Route, Switch } from 'react-router-dom';
-import './style.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+// import './style.css';
+import ContextProvider from './context/ContextProvider';
 
-function App (){
+export default function App() {
   return (
-    <Switch>
-      <Route exact path='/' component={ Login }/>
-      <Route exact path='/' component={ Recipes }/>
-    </Switch>
+    <ContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path='/' element={ <Login/> }/>
+          <Route exact path='/meals' element={ <Recipes/> }/>
+          <Route exact path='/drinks' element={ <Recipes/> }/>
+        </Routes>
+      </BrowserRouter>
+    </ContextProvider>
   );
 };
-
-export default App;
