@@ -3,11 +3,14 @@ import Context from './Context';
 
 export default function ContextProvider({ children }) {
   const [email,setEmail] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
 
   const memo = useMemo(() => ({
     email: email,
     setEmail,
-  }), [email]);
+    showSearch: showSearch,
+    setShowSearch,
+  }), [email,showSearch]);
 
   return (
     <Context.Provider value={memo}>
