@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Context from '../context/Context';
 
 function Login (){
-    const [email,setEmail] = useState('');
+    const { email, setEmail } = useContext(Context)
+
     const [emailV,setEmailV] = useState(false);
     const [pwV,setPwV] = useState(false);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
         localStorage.setItem('user', {email: email});
-        history.push('/');
+        navigate('/meals');
     };
 
     const emailValidation = (event) => {
