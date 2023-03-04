@@ -6,21 +6,21 @@ import Search from './Search';
 import Context from '../context/Context';
 
 export default function Header(){
-    const { showSearch, setShowSearch } = useContext(Context)
+    const { showSearch, setShowSearch } = useContext(Context);
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleClick = (event) => {
         event.preventDefault();
-        navigate('/profile');
+        if (event.target.name === "profile-icon"){
+            navigate('/profile');
+        }
+        else if (event.target.name === "search-btn"){
+            showSearch === true ? setShowSearch(false) : setShowSearch(true);
+        };
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        setShowSearch(true)
-    };
-
-    let pageName = '';
+    let pageName = 'Meals';
     switch (location.pathname) {
         case '/profile':
             pageName = 'Profile';
@@ -39,28 +39,27 @@ export default function Header(){
             break;
         default:
           console.log(`Sorry, we don't have this this page.`);
-      };
+    };
 
     return (
-        <div id="header_buttons">
+        <div id="header-buttons">
             <button 
                 type="submit"
-                name="/profile"
+                name="profile-btn"
                 onClick={handleClick}
             >
-                <img src={ profile_icon } alt="Profile Icon" data-testid="profile_btn" border="0" width="75" height="60"/>
+                <img src={ profile_icon } name="profile-btn" alt="Profile Icon" data-testid="profile-btn" border="0" width="50" height="35"/>
             </button>
-            <h2 data-testid="page_title">{ pageName }</h2>
-            <form onSubmit={handleSubmit}>
-                { showSearch === true && <Search/> }
-                <button 
-                    type="submit"
-                    data-testid="search-btn"
-                    value="Submit"
-                >
-                    <img src={ search_icon } alt="Search Icon" data-testid="search_btn_img" border="0" width="50" height="50"/>
-                </button> 
-            </form>
+            <h2 data-testid="page-title">{ pageName }</h2>
+            { showSearch === true && <Search/> }
+            <button 
+                type="submit"
+                name="search-btn"
+                data-testid="search-btn"
+                onClick={handleClick}
+            >
+                <img src={ search_icon } name="search-btn" alt="Search Icon" data-testid="search-btn-img" border="0" width="25" height="25"/>
+            </button> 
         </div>
     );
 };

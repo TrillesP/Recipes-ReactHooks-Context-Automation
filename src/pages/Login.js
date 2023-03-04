@@ -53,7 +53,7 @@ function Login (){
             <button
                 type="submit"
                 data-testid="login-btn"
-                disabled={ (emailV && pwV)? null : 'disabled'}
+                disabled={ (emailV && pwV) ? null : 'disabled'}
                 value="Submit"
             >
                 Login
