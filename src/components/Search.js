@@ -17,7 +17,6 @@ export default function Search(){
         allEle.forEach((ele) => {
             if(ele.checked){
                 setIsChecked(true);
-                console.log(ele.id)
                 setLocalSearchType(ele.id);
             };
         });

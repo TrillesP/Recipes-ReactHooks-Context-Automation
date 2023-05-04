@@ -1,8 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 export default function Recipes(){
     return (
-        <Header/>
+        <div>
+            <Header/>
+            <Footer/>
+        </div>
     );
 };

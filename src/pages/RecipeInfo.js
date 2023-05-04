@@ -1,13 +1,14 @@
 import React from 'react';
 import Header from '../components/Header';
-import FilteredRecipes from '../components/FilteredRecipes';
+import RecipeDetails from '../components/RecipeDetails';
 import Footer from '../components/Footer';
 
-export default function Recipes(){
+
+export default function RecipeInfo(){
     return (
         <div>
             <Header/>
-            <FilteredRecipes/>
+            <RecipeDetails/>
             <Footer/>
         </div>
     );

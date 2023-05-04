@@ -11,6 +11,7 @@ export default function ContextProvider({ children }) {
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [buttonFilter, setButtonFilter] = useState('');
+  const [itemId, setItemId] = useState();
   const [API, setAPI] = useState([]);
   const [APICategory, setAPICategory] = useState([]);
 
@@ -45,11 +46,13 @@ export default function ContextProvider({ children }) {
     setIsLoading,
     buttonFilter,
     setButtonFilter,
+    itemId,
+    setItemId,
     API,
     setAPI,
     APICategory,
     setAPICategory,
-  }), [email, showSearch, searchType, searchValue, isLoading, buttonFilter, API, APICategory]);
+  }), [email, showSearch, searchType, searchValue, isLoading, buttonFilter, itemId, API, APICategory]);
 
   return (
     <Context.Provider value={memo}>

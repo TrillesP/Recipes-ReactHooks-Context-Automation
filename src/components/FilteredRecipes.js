@@ -15,6 +15,7 @@ function FilteredRecipes() {
     setIsLoading,
     searchValue,
     searchType,
+    setItemId,
   } = useContext(Context);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ function FilteredRecipes() {
 
   const handleClick = (id) => {
     const type = pathname.includes('/meals') ? 'meals' : 'drinks';
+    setItemId(id);
     navigate(`/${type}/${id}`);
   };
 
