@@ -38,7 +38,7 @@ export default function Header(){
             pageName = 'Favorite Recipes';
             break;
         default:
-          console.log(`Sorry, we don't have this this page.`);
+            break;
     };
 
     return (

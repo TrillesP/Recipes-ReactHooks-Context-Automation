@@ -1,8 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
+import FilteredRecipes from '../components/FilteredRecipes';
 
 export default function Recipes(){
     return (
-        <Header/>
+        <div>
+            <Header/>
+            <FilteredRecipes/>
+        </div>
     );
 };

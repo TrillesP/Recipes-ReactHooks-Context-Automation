@@ -1,23 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import Context from '../context/Context';
 
 export default function Search(){
-
-    const [searchValue, setSearchValue] = useState();
     const [isChecked, setIsChecked] = useState(false);
+    const [localSearchType, setLocalSearchType] = useState('');
+    const [localSearchValue, setLocalSearchValue] = useState();
+    const {
+        setSearchValue,
+        setSearchType,
+      } = useContext(Context);
     
     const handleChange = () => {
         let eleSearchInput = document.getElementById('search-input');
-        setSearchValue(eleSearchInput.value);
+        setLocalSearchValue(eleSearchInput.value);
         let allEle = document.getElementsByName('search-option');
         allEle.forEach((ele) => {
             if(ele.checked){
                 setIsChecked(true);
+                console.log(ele.id)
+                setLocalSearchType(ele.id);
             };
         });
     };
     
-    const handleSearch = () => {
-        
+    const handleSearch = (event) => {
+        event.preventDefault();
+        switch (localSearchType) {
+            case 'name':
+                setSearchType('search.php?s=');
+                setSearchValue(localSearchValue);
+                break;
+            case 'ingredient':
+                setSearchType('filter.php?i=');
+                setSearchValue(localSearchValue);
+                break;
+            case 'first-letter':
+                if (localSearchValue.length !== 1) {
+                    global.alert('Your search must have only 1 (one) character');
+                    return;
+                }
+                setSearchType('search.php?f=');
+                setSearchValue(localSearchValue);
+                break;
+            default:
+                setSearchType('search.php?s=');
+                setSearchValue('');
+                break;
+        };
     };
 
     return (
@@ -41,7 +70,7 @@ export default function Search(){
                 <button
                     type="submit"
                     data-testid="search-exec-btn"
-                    disabled={ (searchValue && isChecked) ? null : 'disabled'}
+                    disabled={ (localSearchType && isChecked) ? null : 'disabled'}
                     value="Submit"
                 >
                     Search
