@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Context from '../context/Context';
 import { APIDrinks, APIMeals } from '../API/FetchAPI';
 import starUnselected from '../images/star-unselected.png';
@@ -7,6 +7,7 @@ import starSelected from '../images/star-selected.png';
 
 export default function RecipeDetails() {
   const { pathname } = useLocation();
+  const { id } = useParams();
   const [details, setDetails] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [quantities, setQuantities] = useState([]);
@@ -23,18 +24,17 @@ export default function RecipeDetails() {
   const {
     isLoading,
     setIsLoading,
-    itemId,
     API,
   } = useContext(Context);
 
   useEffect(() => {
     const getMealsFilter = async () => {
-      const response = await APIMeals('lookup.php?i=', itemId);
+      const response = await APIMeals('lookup.php?i=', id);
       setDetails(response[0]);
       setIsLoading(false);
     };
     const getDrinksFilter = async () => {
-      const response = await APIDrinks('lookup.php?i=', itemId);
+      const response = await APIDrinks('lookup.php?i=', id);
       setDetails(response[0]);
       setIsLoading(false);
     };
@@ -43,7 +43,7 @@ export default function RecipeDetails() {
       } else if (pathname.includes('/drinks')) {
         getDrinksFilter();
     };
-    if (favoritesState.some((fav) => fav.id === itemId)) {
+    if (favoritesState.some((fav) => fav.id === id)) {
       setStar(starSelected);
     };
   }, []);
@@ -114,7 +114,7 @@ export default function RecipeDetails() {
         data-testid="favorite-btn"
         onClick={ () => {
           const favoriteFood = {
-            itemId,
+            id,
             name: item,
             type: pathname.includes('/meals') ? 'meal' : 'drink',
             nationality: itemArea,
