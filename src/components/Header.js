@@ -12,7 +12,7 @@ export default function Header(){
 
     const handleClick = (event) => {
         event.preventDefault();
-        if (event.target.name === "profile-icon"){
+        if (event.target.name === "profile-btn"){
             navigate('/profile');
         }
         else if (event.target.name === "search-btn"){
@@ -53,6 +53,7 @@ export default function Header(){
                     name="profile-btn"
                     alt="Profile Icon"
                     data-testid="profile-btn"
+                    aria-hidden="true"
                     border="0"
                     width="50"
                     height="35"

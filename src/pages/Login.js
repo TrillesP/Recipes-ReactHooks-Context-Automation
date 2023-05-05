@@ -11,7 +11,7 @@ function Login (){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        localStorage.setItem('user', { email });
+        localStorage.setItem('user', JSON.stringify({email}));
         navigate('/meals');
     };
 
