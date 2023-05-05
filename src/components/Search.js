@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Context from '../context/Context';
 
 export default function Search(){
@@ -9,6 +10,8 @@ export default function Search(){
         setSearchValue,
         setSearchType,
       } = useContext(Context);
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
     
     const handleChange = () => {
         let eleSearchInput = document.getElementById('search-input');
@@ -24,6 +27,11 @@ export default function Search(){
     
     const handleSearch = (event) => {
         event.preventDefault();
+        if (pathname.includes('/meals') && pathname !== '/meals') {
+            navigate('/meals');
+        } else if (pathname.includes('/drinks') && pathname !== '/drinks'){
+            navigate('/drinks');
+        };
         switch (localSearchType) {
             case 'name':
                 setSearchType('search.php?s=');
