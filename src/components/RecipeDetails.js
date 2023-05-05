@@ -4,6 +4,8 @@ import Context from '../context/Context';
 import { APIDrinks, APIMeals } from '../API/FetchAPI';
 import starUnselected from '../images/star-unselected.png';
 import starSelected from '../images/star-selected.png';
+import recipeTested from '../images/checkbox-checked.png';
+import recipeNotTested from '../images/checkbox-unchecked.png';
 
 export default function RecipeDetails() {
   const { pathname } = useLocation();
@@ -13,10 +15,18 @@ export default function RecipeDetails() {
   const [quantities, setQuantities] = useState([]);
   const [ingredToRender, setIngredToRender] = useState([]);
   const [starImg, setStar] = useState(starUnselected);
+  const [testedImg, setTestedImg] = useState(recipeNotTested);
   const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [favoritesState, setFavoritesState] = useState(() => {
     if (favorite !== null) {
       return [...favorite];
+    }
+    return [];
+  });
+  const tested = JSON.parse(localStorage.getItem('testedRecipes'));
+  const [testedState, setTestedState] = useState(() => {
+    if (tested !== null) {
+      return [...tested];
     }
     return [];
   });
@@ -46,6 +56,9 @@ export default function RecipeDetails() {
     if (favoritesState.some((fav) => fav.id === id)) {
       setStar(starSelected);
     };
+    if (testedState.some((fav) => fav.id === id)) {
+      setTestedImg(recipeTested);
+    }
   }, []);
 
   function filterIngred(objToReduce, str) {
@@ -73,8 +86,8 @@ export default function RecipeDetails() {
 
   const favoriteRecipe = (obj) => {
     if (favoritesState.some((fav) => fav.name === obj.name)) {
-      const rmvFav = favoritesState.filter((e) => Object.values(e)[0] !== obj.id);
-      setFavoritesState(rmvFav);
+      const removeFav = favoritesState.filter((e) => Object.values(e)[0] !== obj.id);
+      setFavoritesState(removeFav);
       setStar(starUnselected);
     } else {
       setFavoritesState([...favoritesState, obj]);
@@ -82,9 +95,21 @@ export default function RecipeDetails() {
     }
   };
 
+  const testedRecipes = (obj) => {
+    if (testedState.some((test) => test.name === obj.name)) {
+      const removeTested = testedState.filter((e) => Object.values(e)[0] !== obj.id);
+      setTestedState(removeTested);
+      setTestedImg(recipeNotTested);
+    } else {
+      setTestedState([...testedState, obj]);
+      setTestedImg(recipeTested);
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesState));
-  }, [favoritesState]);
+    localStorage.setItem('testedRecipes', JSON.stringify(testedState));
+  }, [favoritesState, testedState]);
 
   const item = pathname.includes('/meals') ? details.strMeal : details.strDrink;
   const itemImg = pathname.includes('/meals') ? details.strMealThumb : details.strDrinkThumb;
@@ -123,6 +148,24 @@ export default function RecipeDetails() {
             image: itemImg,
           };
           favoriteRecipe(favoriteFood);
+        } }
+      />
+      <img
+        src={ testedImg }
+        aria-hidden="true"
+        alt="tested"
+        data-testid="tested-btn"
+        onClick={ () => {
+          const testedFood = {
+            id,
+            name: item,
+            type: pathname.includes('/meals') ? 'meal' : 'drink',
+            nationality: itemArea,
+            category: details.strCategory,
+            alcoholicOrNot: itemAlc,
+            image: itemImg,
+          };
+          testedRecipes(testedFood);
         } }
       />
       {ingredToRender.map((item, index) => (
