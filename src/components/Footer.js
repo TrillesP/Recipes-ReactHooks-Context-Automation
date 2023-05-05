@@ -13,6 +13,7 @@ export default function Footer() {
         data-testid="drinks-bottom-btn"
         onClick={ () => navigate('/drinks') }
         aria-hidden="true"
+        style={ { maxWidth: '50px' } }
       />
 
       <img
@@ -21,6 +22,7 @@ export default function Footer() {
         data-testid="meals-bottom-btn"
         onClick={ () => navigate('/meals') }
         aria-hidden="true"
+        style={ { maxWidth: '50px' } }
       />
     </footer>
   );
