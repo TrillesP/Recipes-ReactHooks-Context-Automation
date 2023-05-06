@@ -18,6 +18,7 @@ export default function FavoritesBody() {
   };
 
   const removeFavorite = (name) => {
+    document.getElementById(name).src='';
     const prevFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const newFavorites = prevFavorites.filter((item) => item.name !== name);
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
@@ -73,7 +74,8 @@ export default function FavoritesBody() {
               { variableDataTestID() }
               <img
                 src={ starSelected }
-                alt="favorite"
+                id={ name }
+                alt=""
                 aria-hidden="true"
                 data-testid={ `${index}-horizontal-favorite-btn` }
                 onClick={ () => removeFavorite(name) }

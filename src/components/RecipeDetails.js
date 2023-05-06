@@ -59,7 +59,7 @@ export default function RecipeDetails() {
     if (testedState.some((fav) => fav.id === id)) {
       setTestedImg(recipeTested);
     }
-  }, []);
+  }, [favoritesState, id, pathname, setIsLoading, testedState]);
 
   function filterIngred(objToReduce, str) {
     const newObject = Object.keys(objToReduce)

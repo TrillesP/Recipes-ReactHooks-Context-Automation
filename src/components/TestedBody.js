@@ -18,6 +18,7 @@ export default function TestedBody() {
   };
 
   const removeTested = (name) => {
+    document.getElementById(name).src='';
     const prevTested = JSON.parse(localStorage.getItem('testedRecipes'));
     const newTested = prevTested.filter((item) => item.name !== name);
     localStorage.setItem('testedRecipes', JSON.stringify(newTested));
@@ -73,7 +74,8 @@ export default function TestedBody() {
               { variableDataTestID() }
               <img
                 src={ recipeTested }
-                alt="favorite"
+                id={ name }
+                alt=""
                 aria-hidden="true"
                 data-testid={ `${index}-horizontal-tested-btn` }
                 onClick={ () => removeTested(name) }
