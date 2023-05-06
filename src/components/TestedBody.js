@@ -8,7 +8,7 @@ export default function TestedBody() {
   const navigate = useNavigate();
   const testedRecipes = JSON.parse(localStorage.getItem('testedRecipes'));
 
-  const variableDataTestID = (type, nationality, category, alcoholicOrNot) => {
+  const mealOrDrink = (type, nationality, category, alcoholicOrNot) => {
     if (type === 'meal') {
       return `${nationality} - ${category}`;
     }
@@ -69,9 +69,9 @@ export default function TestedBody() {
               <h5
                 data-testid={ `${index}-horizontal-top-text` }
               >
-                {variableDataTestID(type, nationality, category, alcoholicOrNot)}
+                {mealOrDrink(type, nationality, category, alcoholicOrNot)}
               </h5>
-              { variableDataTestID() }
+              { mealOrDrink() }
               <img
                 src={ recipeTested }
                 id={ name }

@@ -8,7 +8,7 @@ export default function FavoritesBody() {
   const navigate = useNavigate();
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
-  const variableDataTestID = (type, nationality, category, alcoholicOrNot) => {
+  const mealOrDrink = (type, nationality, category, alcoholicOrNot) => {
     if (type === 'meal') {
       return `${nationality} - ${category}`;
     }
@@ -69,9 +69,9 @@ export default function FavoritesBody() {
               <h5
                 data-testid={ `${index}-horizontal-top-text` }
               >
-                {variableDataTestID(type, nationality, category, alcoholicOrNot)}
+                {mealOrDrink(type, nationality, category, alcoholicOrNot)}
               </h5>
-              { variableDataTestID() }
+              { mealOrDrink() }
               <img
                 src={ starSelected }
                 id={ name }
