@@ -4,7 +4,7 @@ Site projetado pensado na pesquisa de receitas e criação de perfil para salvar
 
 ## Objetivo
 
-Testar e aperfeiçoar conhecimentos de JavaScript e React com Context e Hooks, além de aperfeiçoar aprendizados de testes automatizados com Cypress.
+:fire: Testar e aperfeiçoar conhecimentos de JavaScript e React com Context e Hooks, além de aperfeiçoar aprendizados de testes automatizados com Cypress.
 
 ### Diferenciais
 
@@ -18,6 +18,7 @@ Testar e aperfeiçoar conhecimentos de JavaScript e React com Context e Hooks, a
 Primeiro instale as dependências com o comando `npm install`
 
 Depois rode o app com o comando `npm start`
+
 Abra [http://localhost:3000](http://localhost:3000) pra ver no seu browser.
 
 Para rodar os testes em Cypress, rode o comando `npx cypress open`
