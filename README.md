@@ -19,6 +19,6 @@ Primeiro instale as dependências com o comando `npm install`
 
 Depois rode o app com o comando `npm start`
 
-Abra [http://localhost:3000](http://localhost:3000) pra ver no seu browser.
+Abra [http://localhost:3000](http://localhost:3000) pra ver o app rodando no seu browser.
 
 Para rodar os testes em Cypress, rode o comando `npx cypress open`
