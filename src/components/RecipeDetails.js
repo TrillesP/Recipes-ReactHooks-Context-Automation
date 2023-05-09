@@ -185,20 +185,6 @@ export default function RecipeDetails() {
           src={ details.strYoutube.replace('watch?v=', 'embed/') }
         />
       )}
-      <div>
-        {API.slice(0, 6).map((items, index) => (
-          <div key={ index } data-testid={ `${index}-recommendation-card` }>
-            <p data-testid={ `${index}-recommendation-title` }>
-              { items.strMeal || items.strDrink }
-            </p>
-            <img
-              src={ items.strMealThumb || items.strDrinkThumb }
-              alt={ items.strMeal || items.strDrink }
-              style={ { maxWidth: 200 } }
-            />
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
