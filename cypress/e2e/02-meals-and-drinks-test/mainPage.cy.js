@@ -8,60 +8,80 @@ describe('Meals and Drinks pages test', () => {
     cy.get('[data-testid="login-btn"]').click()
   })
 
-  it('tests presentation of page Meals', () => {
-    cy.get('[type="submit"][name="profile-btn"]').should
-      .type('fake@email.com').should('have.value', 'fake@email.com')
-
-      // .type() with special character sequences
-      .type('{leftarrow}{rightarrow}{uparrow}{downarrow}')
-      .type('{del}{selectall}{backspace}')
-
-      // .type() with key modifiers
-      .type('{alt}{option}') //these are equivalent
-      .type('{ctrl}{control}') //these are equivalent
-      .type('{meta}{command}{cmd}') //these are equivalent
-      .type('{shift}')
-
-      // Delay each keypress by 0.1 sec
-      .type('slow.typing@email.com', { delay: 100 })
-      .should('have.value', 'slow.typing@email.com')
-
-    cy.get('.action-disabled')
-      // Ignore error checking prior to type
-      // like whether the input is visible or disabled
-      .type('disabled error checking', { force: true })
-      .should('have.value', 'disabled error checking')
+  it('tests loading of elements in page', () => {
+    cy.get('img').should('have.length', 16) //all images
+    cy.get('h3').should('have.length', 12) //all meal names
+    cy.get('button').should('have.length', 9) //all buttons
   })
 
-  it('.focus() - focus on a DOM element', () => {
-    // https://on.cypress.io/focus
-    cy.get('.action-focus').focus()
-      .should('have.class', 'focus')
-      .prev().should('have.attr', 'style', 'color: orange;')
+  it('tests if filter button works for meals, changing elements that appear', () => {
+    cy.get('[data-testid="0-card-name"]').should('have.text', "Corba")
+    cy.contains('Beef').click()
+    cy.get('[data-testid="0-card-name"]').should('not.have.text', "Corba")
+
+    cy.get('[data-testid="0-card-name"]').should('have.text', "Beef and Mustard Pie")
+    cy.contains('Dessert').click()
+    cy.get('[data-testid="0-card-name"]').should('not.have.text', "Beef and Mustard Pie")
+
+    cy.get('[data-testid="0-card-name"]').should('have.text', "Apam balik")
+    cy.contains('All').click()
+    cy.get('[data-testid="0-card-name"]').should('have.text', "Corba")
   })
 
-  it('.blur() - blur off a DOM element', () => {
-    // https://on.cypress.io/blur
-    cy.get('.action-blur').type('About to blur').blur()
-      .should('have.class', 'error')
-      .prev().should('have.attr', 'style', 'color: red;')
+  it('checks if footer images work for changing pages', () => {
+    cy.contains('Meals').should('exist')
+    cy.contains('Drinks').should('not.exist')
+    cy.get('[data-testid="drinks-bottom-btn"]').click()
+    cy.contains('Meals').should('not.exist')
+    cy.contains('Drinks').should('exist')
+    cy.get('[data-testid="meals-bottom-btn"]').click()
+    cy.contains('Meals').should('exist')
+    cy.contains('Drinks').should('not.exist')
   })
 
-  it('.clear() - clears an input or textarea element', () => {
-    // https://on.cypress.io/clear
-    cy.get('.action-clear').type('Clear this text')
-      .should('have.value', 'Clear this text')
-      .clear()
-      .should('have.value', '')
+  it('tests if filter button works for drinks, changing elements that appear', () => {
+    cy.get('[data-testid="drinks-bottom-btn"]').click()
+
+    cy.get('[data-testid="0-card-name"]').should('have.text', "GG")
+    cy.contains('Cocktail').click()
+    cy.get('[data-testid="0-card-name"]').should('not.have.text', "GG")
+
+    cy.get('[data-testid="0-card-name"]').should('have.text', "155 Belmont")
+    cy.contains('Cocoa').click()
+    cy.get('[data-testid="0-card-name"]').should('not.have.text', "155 Belmont")
+
+    cy.get('[data-testid="0-card-name"]').should('have.text', "Castillian Hot Chocolate")
+    cy.contains('All').click()
+    cy.get('[data-testid="0-card-name"]').should('have.text', "GG")
   })
 
-  it('.submit() - submit a form', () => {
-    // https://on.cypress.io/submit
-    cy.get('.action-form')
-      .find('[type="text"]').type('HALFOFF')
+  it('checks if Search component shows and works correctly', () => {
+    cy.get('[data-testid="search-btn-img"]').click()
+    cy.get('#search-bar-elements').find('#name').should('exist').and('have.value', "Name")
+    cy.get('#search-bar-elements').find('#ingredient').should('exist').and('have.value', "Ingredient")
+    cy.get('#search-bar-elements').find('#first-letter').should('exist').and('have.value', "First Letter")
 
-    cy.get('.action-form').submit()
-      .next().should('contain', 'Your form has been submitted!')
+    cy.get('[data-testid="name-search-radio"]').click()
+    cy.get('[data-testid="search-input"]').type('salmon{enter}')
+    cy.get('h3').should('contain.text', 'salmon')
+
+    cy.get('[data-testid="ingredient-search-radio"]').click()
+    cy.get('[data-testid="search-input"]').clear()
+    cy.get('[data-testid="search-input"]').type('lime{enter}')
+    cy.get('h3').should('have.length', 12)
+
+    cy.get('[data-testid="first-letter-search-radio"]').click()
+    cy.get('[data-testid="search-input"]').clear()
+    cy.get('[data-testid="search-input"]').type('P{enter}')
+    cy.get('[data-testid="0-card-name"]').should('have.text', "Pad See Ew")
+
+    const stub = cy.stub()
+    cy.on('window:alert', stub)
+    cy
+      .get('[data-testid="search-input"]').type('ad{enter}')
+      .then(() => {
+      expect(stub.getCall(0)).to.be.calledWith('Your search must have only 1 (one) character')      
+    })
   })
 
   it('.click() - click on a DOM element', () => {
