@@ -9,6 +9,7 @@ export default function Search(){
     const {
         setSearchValue,
         setSearchType,
+        setButtonFilter,
       } = useContext(Context);
     const { pathname } = useLocation();
     const navigate = useNavigate();
@@ -34,10 +35,12 @@ export default function Search(){
         };
         switch (localSearchType) {
             case 'name':
+                setButtonFilter('');
                 setSearchType('search.php?s=');
                 setSearchValue(localSearchValue);
                 break;
             case 'ingredient':
+                setButtonFilter('');
                 setSearchType('filter.php?i=');
                 setSearchValue(localSearchValue);
                 break;
@@ -46,10 +49,12 @@ export default function Search(){
                     global.alert('Your search must have only 1 (one) character');
                     return;
                 }
+                setButtonFilter('');
                 setSearchType('search.php?f=');
                 setSearchValue(localSearchValue);
                 break;
             default:
+                setButtonFilter('');
                 setSearchType('search.php?s=');
                 setSearchValue('');
                 break;
