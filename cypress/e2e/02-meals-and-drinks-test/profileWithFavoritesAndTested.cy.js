@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('Meals and Drinks pages test', () => {
+describe('Profile page test', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000')
     cy.get('[data-testid="email-input"]').type('good@email.com')
