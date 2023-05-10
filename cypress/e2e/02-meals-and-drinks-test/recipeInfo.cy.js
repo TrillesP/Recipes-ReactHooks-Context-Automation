@@ -1,20 +1,18 @@
 /// <reference types="cypress" />
 
-context('Waiting', () => {
+describe('Meals and Drinks pages test', () => {
   beforeEach(() => {
-    cy.visit('https://example.cypress.io/commands/waiting')
+    cy.visit('http://localhost:3000')
+    cy.get('[data-testid="email-input"]').type('good@email.com')
+    cy.get('[data-testid="password-input"]').type('123456')
+    cy.get('[data-testid="login-btn"]').click()
   })
-  // BE CAREFUL of adding unnecessary wait times.
-  // https://on.cypress.io/best-practices#Unnecessary-Waiting
 
-  // https://on.cypress.io/wait
-  it('cy.wait() - wait for a specific amount of time', () => {
-    cy.get('.wait-input1').type('Wait 1000ms after typing')
-    cy.wait(1000)
-    cy.get('.wait-input2').type('Wait 1000ms after typing')
-    cy.wait(1000)
-    cy.get('.wait-input3').type('Wait 1000ms after typing')
-    cy.wait(1000)
+  it('tests loading of elements in page', () => {
+    cy.get('[data-testid="0-card-img"]').click()
+    cy.get('[data-testid="favorite-btn"]').should('have.attr', 'src').and('have.','star-unselected')
+    cy.get('[data-testid="favorite-btn"]').click()
+    cy.get('[data-testid="favorite-btn"]').should('have.attr', 'src').and('include','star-selected')
   })
 
   it('cy.wait() - wait for a specific route', () => {
